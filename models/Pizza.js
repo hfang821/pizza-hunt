@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
 
 /* Data to be stored when user creates a new pizza:
 1. The name of the pizza
@@ -25,6 +26,8 @@ const PizzaSchema = new Schema(
   createdAt: {
     type: Date,
     default: Date.now,
+    //getter: transform the data by default every time its queried (but we can use the timestamp value for storage)
+    get: (createdAtVal) => dateFormat(createdAtVal)
   },
   size: {
     type: String,
@@ -43,6 +46,7 @@ const PizzaSchema = new Schema(
 {
   toJSON: {
     virtuals: true,
+    getters: true
   },
   //set to false because it is a virtual that mongoose needs, not us
   id: false
