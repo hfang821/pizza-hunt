@@ -14,7 +14,8 @@ const { Schema, model } = require("mongoose");
 6. The pizza's toppings
 */
 
-const PizzaSchema = new Schema({
+const PizzaSchema = new Schema(
+  {
   pizzaName: {
     type: String,
   },
@@ -30,8 +31,30 @@ const PizzaSchema = new Schema({
     default: "Large",
   },
   toppings: [],
-});
+  comments: [
+    {
+      //ask Ta: what does the type: Schema.Types.ObjectId do here?
+      type: Schema.Types.ObjectId,
+      //ref property tells the Pizza model which documents to search to find the right comments
+      ref: 'Comment'
+    }
+  ]
+},
+{
+  toJSON: {
+    virtuals: true,
+  },
+  //set to false because it is a virtual that mongoose needs, not us
+  id: false
+}
+);
 
+//Virtual: allow you to add virtual properties to a document that aren't stored in the database. 
+//They're normally computed values that get evaluated when you try to access their properties. 
+//get total count of comments and replies on retrieval
+PizzaSchema.virtual('commentCount').get(function(){
+  return this.comments.length;
+});
 
 //create the Pizza model using the PizzaSchema
 const Pizza = model('Pizza', PizzaSchema);
