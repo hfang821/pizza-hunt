@@ -4,6 +4,7 @@ const pizzaController = {
     //get all pizzas
     getAllPizza (req,res) {
         Pizza.find({})
+        //Populate: basically allows to show/populate the content of the comments instead of just the comment_id
         .populate({
             path: 'comments', 
             //Note that we also used the select option inside of populate(), so that we can tell Mongoose that we don't care about the __v field on comments either. The minus sign - in front of the field indicates that we don't want it to be returned. If we didn't have it, it would mean that it would return only the __v field.

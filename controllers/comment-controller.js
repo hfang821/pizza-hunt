@@ -9,7 +9,7 @@ const commentController = {
                 return Pizza.findOneAndUpdate(
                     {_id: params.pizzaId},
                     //use the $push method to add the comment's _id to the specific pizza we want to update. (add data to an array)
-                    //ask Ta: difference btw push and pull
+                    //its pushing a new comment with the comment_id to the pizza you selected
                     {$push: {comments: _id}},
                     {new: true}
                 );
@@ -33,7 +33,7 @@ const commentController = {
                 }
                 return Pizza.findOneAndDelete(
                     {_id: params.pizzaId},
-                    //ask Ta: difference btw push and pull
+                    //delete comment with a unique id (or it will remove all identical comments)
                     {$pull: {comments: params.commentId}},
                     {new: true}
                 );

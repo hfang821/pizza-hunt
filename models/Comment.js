@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 
-const CommentSchema = new Schema({
+const CommentSchema = new Schema(
+    {
     writtenBy: {
         type: String
     },
@@ -10,8 +11,10 @@ const CommentSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
-});
+    },
+    //replies
+},
+);
 
 const Comment = model('Comment', CommentSchema);
 

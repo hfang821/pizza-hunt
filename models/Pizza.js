@@ -36,7 +36,7 @@ const PizzaSchema = new Schema(
   toppings: [],
   comments: [
     {
-      //ask Ta: what does the type: Schema.Types.ObjectId do here?
+      //This is a method to refer the model you define on line 42 so that you can do things like (populate).
       type: Schema.Types.ObjectId,
       //ref property tells the Pizza model which documents to search to find the right comments
       ref: 'Comment'
@@ -44,8 +44,11 @@ const PizzaSchema = new Schema(
   ]
 },
 {
+  //you can send the results of virtuals/getters in json format
   toJSON: {
+    //allowing to use virtuals and getters
     virtuals: true,
+    //getter: it transform whatever you are getting back from the database
     getters: true
   },
   //set to false because it is a virtual that mongoose needs, not us
