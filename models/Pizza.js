@@ -19,9 +19,13 @@ const PizzaSchema = new Schema(
   {
   pizzaName: {
     type: String,
+    required: 'You need to provide a pizza name',
+    trim: true
   },
   createdBy: {
     type: String,
+    required: 'You need to provide a creator name',
+    trim: true
   },
   createdAt: {
     type: Date,
@@ -31,6 +35,10 @@ const PizzaSchema = new Schema(
   },
   size: {
     type: String,
+    required: true,
+    //people can still manipulate the predetermined sizes in the devTools, so add some backend validation too
+    //enumerable (a set of data that can be iterated over)/ an array of options size field will accept
+    enum: ['Personal', 'Small', 'Medium', 'Large', 'Extra Large'],
     default: "Large",
   },
   toppings: [],

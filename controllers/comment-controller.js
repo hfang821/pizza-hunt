@@ -29,7 +29,7 @@ const commentController = {
             {_id: params.commentId},
             {$push: {replies:body}},
             //When true, returns the modified document rather than the original.
-            {new: true}
+            {new: true, runValidators: true}
         )
         .then(dbPizzaData=>{
             if(!dbPizzaData){
